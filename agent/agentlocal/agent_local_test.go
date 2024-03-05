@@ -124,6 +124,7 @@ func TestServerStatus(t *testing.T) {
 }
 
 func TestGetZipFile(t *testing.T) {
+	t.Parallel()
 	setup := func(t *testing.T) ([]*agentlocalpb.AgentInfo, *mockSupervisor, *mockClient, configGetReloader) {
 		t.Helper()
 		agentInfo := []*agentlocalpb.AgentInfo{{
