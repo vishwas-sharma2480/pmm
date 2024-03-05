@@ -336,6 +336,7 @@ func TestPGStatMonitorSchema(t *testing.T) {
 	})
 
 	t.Run("AllCountriesTruncated", func(t *testing.T) {
+		t.Parallel()
 		m := setup(t, db, false, false)
 
 		const n = 500
@@ -471,6 +472,7 @@ func TestPGStatMonitorSchema(t *testing.T) {
 	})
 
 	t.Run("CheckMBlkReadTime", func(t *testing.T) {
+		t.Parallel()
 		r := rand.New(rand.NewSource(time.Now().Unix())) //nolint:gosec
 		tableName := fmt.Sprintf("customer%d", r.Int())
 		_, err := db.Exec(fmt.Sprintf(`

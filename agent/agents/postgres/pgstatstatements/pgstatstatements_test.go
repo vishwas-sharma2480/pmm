@@ -66,6 +66,7 @@ func filter(mb []*agentpb.MetricsBucket) []*agentpb.MetricsBucket {
 }
 
 func TestPGStatStatementsQAN(t *testing.T) {
+	t.Parallel()
 	sqlDB := tests.OpenTestPostgreSQL(t)
 	defer sqlDB.Close() //nolint:errcheck
 	db := reform.NewDB(sqlDB, postgresql.Dialect, reform.NewPrintfLogger(t.Logf))
@@ -178,6 +179,7 @@ func TestPGStatStatementsQAN(t *testing.T) {
 	}
 
 	t.Run("AllCities", func(t *testing.T) {
+		t.Parallel()
 		m := setup(t, db)
 
 		_, err := db.Exec(selectAllCities)
@@ -264,6 +266,7 @@ func TestPGStatStatementsQAN(t *testing.T) {
 	})
 
 	t.Run("AllCitiesTruncated", func(t *testing.T) {
+		t.Parallel()
 		m := setup(t, db)
 
 		const n = 500
@@ -361,6 +364,7 @@ func TestPGStatStatementsQAN(t *testing.T) {
 	})
 
 	t.Run("CheckMBlkReadTime", func(t *testing.T) {
+		t.Parallel()
 		r := rand.New(rand.NewSource(time.Now().Unix())) //nolint:gosec
 		tableName := fmt.Sprintf("customer%d", r.Int())
 		_, err := db.Exec(fmt.Sprintf(`
