@@ -90,12 +90,14 @@ func filter(mb []*agentpb.MetricsBucket) []*agentpb.MetricsBucket {
 }
 
 func TestVersion(t *testing.T) {
+	t.Parallel()
 	pgsmVersion, err := ver.NewVersion("1.0.0-beta-2")
 	require.NoError(t, err)
 	require.True(t, pgsmVersion.LessThan(v10))
 }
 
 func TestPGStatMonitorSchema(t *testing.T) {
+	t.Parallel()
 	t.Skip("Skip it until the sandbox supports pg_stat_monitor by default. The current PostgreSQL image is the official, not the one from PerconaLab")
 	sqlDB := tests.OpenTestPostgreSQL(t)
 	defer sqlDB.Close() //nolint:errcheck
@@ -203,6 +205,7 @@ func TestPGStatMonitorSchema(t *testing.T) {
 	}
 
 	t.Run("AllCountries", func(t *testing.T) {
+		t.Parallel()
 		m := setup(t, db, false, false)
 
 		_, err := db.Exec(selectAllCountries)
