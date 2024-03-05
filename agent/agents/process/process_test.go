@@ -70,6 +70,7 @@ func setup(t *testing.T) (context.Context, context.CancelFunc, *logrus.Entry) {
 
 func TestProcess(t *testing.T) {
 	t.Run("Normal", func(t *testing.T) {
+		t.Parallel()
 		ctx, cancel, l := setup(t)
 		p := New(&Params{Path: "sleep", Args: []string{"100500"}}, nil, l)
 		go p.Run(ctx)
@@ -80,6 +81,7 @@ func TestProcess(t *testing.T) {
 	})
 
 	t.Run("FailedToStart", func(t *testing.T) {
+		t.Parallel()
 		ctx, cancel, l := setup(t)
 		p := New(&Params{Path: "no_such_command"}, nil, l)
 		go p.Run(ctx)
@@ -90,6 +92,7 @@ func TestProcess(t *testing.T) {
 	})
 
 	t.Run("ExitedEarly", func(t *testing.T) {
+		t.Parallel()
 		sleep := strconv.FormatFloat(runningT.Seconds()-0.5, 'f', -1, 64)
 		ctx, cancel, l := setup(t)
 		p := New(&Params{Path: "sleep", Args: []string{sleep}}, nil, l)
@@ -190,6 +193,7 @@ func TestProcess(t *testing.T) {
 }
 
 func TestExtractLogLevel(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		testName      string
 		line          string
@@ -207,6 +211,7 @@ func TestExtractLogLevel(t *testing.T) {
 	}
 
 	for _, tt := range tests {
+		t.Parallel()
 		t.Run(tt.testName, func(t *testing.T) {
 			level, found, err := extractLogLevel(tt.line)
 
