@@ -129,8 +129,7 @@ func TestProcessLogger(t *testing.T) {
 			0,
 		},
 	}
-	for _, tt := range tests {
-		t.Parallel()
+	for _, tt := range tests {//nolint:tparallel
 		t.Run(tt.testName, func(t *testing.T) {
 			pl := newProcessLogger(nil, tt.writerLines, tt.redactWords)
 			for _, arg := range tt.writeArgs {

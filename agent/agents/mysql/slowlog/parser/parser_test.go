@@ -112,7 +112,6 @@ func TestParseTime(t *testing.T) {
 	}
 
 	for _, tc := range cases {
-		t.Parallel()
 		t.Run(tc.description, func(t *testing.T) {
 			p := NewSlowLogParser(nil, log.Options{})
 			p.parseTime(tc.input)

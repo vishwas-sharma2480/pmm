@@ -31,6 +31,7 @@ type expectedResult struct {
 }
 
 func TestExtractTables(t *testing.T) {
+	t.Parallel()
 	files, err := filepath.Glob(filepath.FromSlash("./testdata/*.sql"))
 	require.NoError(t, err)
 

@@ -104,6 +104,7 @@ func TestProcess(t *testing.T) {
 	})
 
 	t.Run("CancelStarting", func(t *testing.T) {
+		t.Parallel()
 		sleep := strconv.FormatFloat(runningT.Seconds()-0.5, 'f', -1, 64)
 		ctx, cancel, l := setup(t)
 		p := New(&Params{Path: "sleep", Args: []string{sleep}}, nil, l)
@@ -115,6 +116,7 @@ func TestProcess(t *testing.T) {
 	})
 
 	t.Run("Exited", func(t *testing.T) {
+		t.Parallel()
 		sleep := strconv.FormatFloat(runningT.Seconds()+0.5, 'f', -1, 64)
 		ctx, cancel, l := setup(t)
 		p := New(&Params{Path: "sleep", Args: []string{sleep}}, nil, l)
@@ -126,6 +128,7 @@ func TestProcess(t *testing.T) {
 	})
 
 	t.Run("Killed", func(t *testing.T) {
+		t.Parallel()
 		f, err := os.CreateTemp("", "pmm-agent-process-test-noterm")
 		require.NoError(t, err)
 		require.NoError(t, f.Close())
@@ -145,6 +148,7 @@ func TestProcess(t *testing.T) {
 	})
 
 	t.Run("KillChild", func(t *testing.T) {
+		t.Parallel()
 		if runtime.GOOS != "linux" {
 			t.Skip("Pdeathsig is implemented only on Linux")
 		}
@@ -210,8 +214,7 @@ func TestExtractLogLevel(t *testing.T) {
 		{"level key with incorrect value", `ts=2022-06-14T21:43:42.984Z caller=mysqld_exporter.go:492 level=info123 msg="Starting mysqld_exporter"`, 0, false, fmt.Errorf(`not a valid logrus Level: "info123"`)},
 	}
 
-	for _, tt := range tests {
-		t.Parallel()
+	for _, tt := range tests {//nolint:paralleltest
 		t.Run(tt.testName, func(t *testing.T) {
 			level, found, err := extractLogLevel(tt.line)
 

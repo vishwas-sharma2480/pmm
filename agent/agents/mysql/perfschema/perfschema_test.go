@@ -40,6 +40,7 @@ func TestPerfSchemaMakeBuckets(t *testing.T) {
 	defaultMaxQueryLength := truncate.GetDefaultMaxQueryLength()
         t.Parallel()
 	t.Run("Normal", func(t *testing.T) {
+		t.Parallel()
 		prev := map[string]*eventsStatementsSummaryByDigest{
 			"Normal": {
 				Digest:          pointer.ToString("Normal"),
@@ -124,6 +125,7 @@ func TestPerfSchemaMakeBuckets(t *testing.T) {
 	})
 
 	t.Run("Truncate", func(t *testing.T) {
+		t.Parallel()
 		prev := map[string]*eventsStatementsSummaryByDigest{
 			"Truncate": {
 				Digest:          pointer.ToString("Truncate"),
@@ -138,6 +140,7 @@ func TestPerfSchemaMakeBuckets(t *testing.T) {
 	})
 
 	t.Run("TruncateAndNew", func(t *testing.T) {
+		t.Parallel()
 		prev := map[string]*eventsStatementsSummaryByDigest{
 			"TruncateAndNew": {
 				Digest:          pointer.ToString("TruncateAndNew"),
@@ -498,6 +501,7 @@ func TestPerfSchema(t *testing.T) {
 	})
 
 	t.Run("DisableQueryExamples", func(t *testing.T) {
+		t.Parallel()
 		m := setup(t, &setupParams{
 			db:                   db,
 			disableQueryExamples: true,
