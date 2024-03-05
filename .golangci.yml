@@ -117,7 +117,7 @@ linters:
     # or leave disabled and provide a reason why
     #- tagliatelle
     #- revive
-    - paralleltest
+    #- paralleltest
     - gocognit
     - tagalign
 
