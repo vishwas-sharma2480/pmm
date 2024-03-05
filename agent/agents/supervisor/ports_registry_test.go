@@ -23,6 +23,7 @@ import (
 )
 
 func TestRegistry(t *testing.T) {
+	t.Parallel()
 	// 65000 is marked as reserved, 65001 is busy, 65002 is free
 	r := newPortsRegistry(65000, 65002, []uint16{65000})
 	l1, err := net.Listen("tcp", "127.0.0.1:65001")
@@ -69,6 +70,7 @@ func TestRegistry(t *testing.T) {
 }
 
 func TestPreferNewPort(t *testing.T) {
+	t.Parallel()
 	r := newPortsRegistry(65000, 65002, nil)
 
 	p, err := r.Reserve()
@@ -92,6 +94,7 @@ func TestPreferNewPort(t *testing.T) {
 }
 
 func TestSinglePort(t *testing.T) {
+	t.Parallel()
 	r := newPortsRegistry(65000, 65000, nil)
 
 	p, err := r.Reserve()

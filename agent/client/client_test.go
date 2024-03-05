@@ -121,7 +121,9 @@ func TestClient(t *testing.T) {
 	})
 
 	t.Run("WithServer", func(t *testing.T) {
+		t.Parallel()
 		t.Run("Normal", func(t *testing.T) {
+			t.Parallel()
 			serverMD := &agentpb.ServerConnectMetadata{
 				ServerVersion: t.Name(),
 			}

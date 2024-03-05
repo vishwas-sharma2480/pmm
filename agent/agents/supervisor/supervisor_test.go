@@ -46,6 +46,7 @@ func assertChanges(t *testing.T, s *Supervisor, expected ...*agentpb.StateChange
 }
 
 func TestSupervisor(t *testing.T) {
+	t.Parallel()
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 	tempDir := t.TempDir()
@@ -59,6 +60,7 @@ func TestSupervisor(t *testing.T) {
 	go s.Run(ctx)
 
 	t.Run("Start13", func(t *testing.T) {
+		t.Parallel()
 		expectedList := []*agentlocalpb.AgentInfo{}
 		require.Equal(t, expectedList, s.AgentsList())
 
@@ -134,6 +136,7 @@ func TestSupervisor(t *testing.T) {
 	})
 
 	t.Run("Restart3Start4", func(t *testing.T) {
+		t.Parallel()
 		expectedList := []*agentlocalpb.AgentInfo{
 			{AgentType: type_TEST_NOOP, AgentId: "noop3", Status: inventorypb.AgentStatus_RUNNING},
 			{AgentType: type_TEST_SLEEP, AgentId: "sleep1", Status: inventorypb.AgentStatus_RUNNING, ListenPort: 65000, ProcessExecPath: "sleep"},
